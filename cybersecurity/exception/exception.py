@@ -12,4 +12,12 @@ class CyberSecurityException(Exception):
     def __str__(self):
         return "Error occured in python script name [{0}] line number [{1}] error message [{2}]".format(
         self.file_name, self.lineno, str(self.error_message))
-        
+    
+if __name__=='__main__':
+    try:
+        logger.logging.info("Enter the try block")
+        a=1/0
+        print("This will not be printed",a)
+    except Exception as e:
+           raise CyberSecurityException(e,sys)
+         
