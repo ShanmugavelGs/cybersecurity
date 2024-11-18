@@ -25,7 +25,7 @@ import mlflow
 from urllib.parse import urlparse
 
 import dagshub
-dagshub.init(repo_owner='gsshanmugavel', repo_name='cybersecurity', mlflow=True)
+dagshub.init(repo_owner='gsshanmugavel', repo_name='cybersecurity', token='ddcb8cd828d5a0623d5d09fe8fd0a68608d6a2b3', mlflow=True)
 
 class ModelTrainer:
     def __init__(self,model_trainer_config:ModelTrainerConfig,data_transformation_artifact:DataTransformationArtifact):
@@ -36,8 +36,6 @@ class ModelTrainer:
             raise CyberSecurityException(e,sys)
     
     def track_mlflow(self,best_model,classificationmetric):
-        # mlflow.set_registry_uri("https://dagshub.com/krishnaik06/networksecurity.mlflow")
-        # tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
         with mlflow.start_run():
             f1_score=classificationmetric.f1_score
             precision_score=classificationmetric.precision_score
