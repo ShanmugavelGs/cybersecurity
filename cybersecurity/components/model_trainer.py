@@ -25,7 +25,10 @@ import mlflow
 from urllib.parse import urlparse
 
 import dagshub
-dagshub.init(repo_owner='gsshanmugavel', repo_name='cybersecurity', token='ddcb8cd828d5a0623d5d09fe8fd0a68608d6a2b3', mlflow=True)
+# dagshub.init(repo_owner='gsshanmugavel', repo_name='cybersecurity', mlflow=True)
+os.environ["MLFLOW_TRACKING_URI"]="https://dagshub.com/gsshanmugavel/cybersecurity.mlflow"
+os.environ["MLFLOW_TRACKING_USERNAME"]="gsshanmugavel "
+os.environ["MLFLOW_TRACKING_PASSWORD"]="8bbff73b44b420033a6ab476c00d5799e0f1fd66"
 
 class ModelTrainer:
     def __init__(self,model_trainer_config:ModelTrainerConfig,data_transformation_artifact:DataTransformationArtifact):
@@ -36,6 +39,8 @@ class ModelTrainer:
             raise CyberSecurityException(e,sys)
     
     def track_mlflow(self,best_model,classificationmetric):
+        mlflow.set_registry_uri("https://dagshub.com/gsshanmugavel/cybersecurity.mlflow")
+        tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
         with mlflow.start_run():
             f1_score=classificationmetric.f1_score
             precision_score=classificationmetric.precision_score
@@ -46,15 +51,15 @@ class ModelTrainer:
             mlflow.log_metric("recall_score",recall_score)
             mlflow.sklearn.log_model(best_model,"model")
             # Model registry does not work with file store
-            # if tracking_url_type_store != "file":
+            if tracking_url_type_store != "file":
 
             #     # Register the model
             #     # There are other ways to use the Model Registry, which depends on the use case,
             #     # please refer to the doc for more information:
             #     # https://mlflow.org/docs/latest/model-registry.html#api-workflow
-            #     mlflow.sklearn.log_model(best_model, "model", registered_model_name=best_model)
-            # else:
-            #     mlflow.sklearn.log_model(best_model, "model")
+                mlflow.sklearn.log_model(best_model, "model", registered_model_name=best_model)
+            else:
+                mlflow.sklearn.log_model(best_model, "model")
     
     def train_model(self,X_train,y_train,x_test,y_test):
         models = {
