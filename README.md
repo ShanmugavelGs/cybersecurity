@@ -77,7 +77,8 @@ Check out the DagsHub repository below to explore my ML flow experiments for thi
 - **Containerized** the entire pipeline using **Docker**, deploying the solution to **AWS EC2 instances** for scalable and efficient execution.  
 - **Developed** a **FastAPI-based web application** for **real-time** and **batch prediction**, enabling users to classify URLs via a user-friendly interface.  
 - **Implemented** **batch prediction capabilities** for large datasets, ensuring high-performance processing of multiple records simultaneously.  
-- **Ensured** **data schema validation** through a dedicated schema file and implemented comprehensive logging and exception handling mechanisms.  
+- **Ensured** **data schema validation** through a dedicated schema file and implemented comprehensive logging and exception handling mechanisms.
+- **Implemented** **dataset drift detection** using the **Kolmogorov-Smirnov (KS2) test**, ensuring model performance is monitored and maintained over time.    
 - **Leveraged** modular and reusable components, enabling **batch prediction** and **model training pipelines** in isolation for streamlined updates and maintenance.  
 - **Achieved** seamless integration of the system with **AWS Cloud services**, ensuring efficient storage, retrieval, and hosting of models and data.
 - **Trained** various models including **Random Forest**, **Decision Tree**, **Gradient Boosting**, **Logistic Regression**, and **AdaBoost**, and performed **hyperparameter tuning** to select the best-performing model.
